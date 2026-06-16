@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Food Court - Universitas Widyatama</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        html, body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FEF3E8; /* Warna latar belakang peach terang */
+            overflow-x: hidden;
+            width: 100%;
+        }
+        
+        /* Class khusus untuk bentuk tombol hexagon (sisi kiri kanan meruncing tumpul) */
+        .btn-hexagon {
+            clip-path: polygon(15px 0%, calc(100% - 15px) 0%, 100% 50%, calc(100% - 15px) 100%, 15px 100%, 0% 50%);
+        }
+
+        /* Warna khusus dari referensi */
+        .bg-brand-orange { background-color: #DF6C23; }
+        .text-brand-orange { color: #DF6C23; }
+        .border-brand-orange { border-color: #DF6C23; }
+        .text-brand-dark { color: #6A2D09; }
+
+        /* Ilustrasi Line-art Background */
+        .bg-sketch {
+            position: absolute;
+            opacity: 0.1;
+            pointer-events: none;
+            z-index: 0;
+            stroke: #D6671C;
+            stroke-width: 1.5;
+            fill: none;
+        }
+
+        /* Latar belakang foto kampus samar di bawah */
+        .bg-campus-footer {
+            background-image: linear-gradient(to bottom, rgba(254, 243, 232, 1) 0%, rgba(254, 243, 232, 0.7) 30%, rgba(254, 243, 232, 0.85) 100%), url('assets/mainhall.jpg');
+            background-size: cover;
+            background-position: center bottom;
+        }
+
+        /* Animasi Keren */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(-12deg); }
+            50% { transform: translateY(-10px) rotate(-12deg); }
+        }
+        @keyframes float-reverse {
+            0%, 100% { transform: translateY(0px) rotate(12deg); }
+            50% { transform: translateY(8px) rotate(12deg); }
+        }
+        @keyframes scaleIn {
+            from { transform: scale(0.95); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+        .animate-scale-in {
+            animation: scaleIn 0.5s ease-out forwards;
+        }
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        .animate-float-reverse {
+            animation: float-reverse 6s ease-in-out infinite;
+        }
+        .btn-hexagon {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-hexagon:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 10px 15px -3px rgba(223, 108, 35, 0.3);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-start bg-campus-footer relative">
+
+    <!-- Sketsa Donat (Kiri Atas) -->
+    <svg class="bg-sketch top-4 -left-12 w-48 h-48 -rotate-12 animate-float" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="40" stroke-width="2" stroke-dasharray="8 4"/>
+        <circle cx="50" cy="50" r="15" stroke-width="2"/>
+        <path d="M 20 50 Q 30 30 50 20 Q 70 30 80 50 Q 70 70 50 80 Q 30 70 20 50" stroke-dasharray="4 4"/>
+        <circle cx="35" cy="35" r="2" fill="#D6671C"/>
+        <circle cx="65" cy="45" r="2" fill="#D6671C"/>
+        <circle cx="45" cy="65" r="2" fill="#D6671C"/>
+    </svg>
+
+    <!-- Sketsa Garpu Sendok (Kanan Atas) -->
+    <svg class="bg-sketch top-16 -right-6 w-32 h-32 animate-float-reverse" viewBox="0 0 100 100">
+        <!-- Garpu -->
+        <path d="M 30 10 L 30 40 Q 30 50 40 50 L 40 90 M 20 10 L 20 30 Q 20 40 30 40 M 40 10 L 40 30 Q 40 40 30 40" stroke-width="3" stroke-linecap="round"/>
+        <!-- Sendok -->
+        <path d="M 70 10 C 60 10 60 30 70 40 C 80 30 80 10 70 10 Z" stroke-width="3"/>
+        <line x1="70" y1="40" x2="70" y2="90" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+
+    <!-- Sketsa Burger (Kiri Tengah) -->
+    <svg class="bg-sketch top-[40%] -left-16 w-56 h-56 -rotate-6 animate-float" viewBox="0 0 100 100">
+        <path d="M 20 40 C 20 20 80 20 80 40 Z" stroke-width="2"/> <!-- Roti Atas -->
+        <line x1="15" y1="45" x2="85" y2="45" stroke-width="2" stroke-linecap="round"/> <!-- Selada -->
+        <path d="M 20 50 L 80 50 L 75 60 L 25 60 Z" stroke-width="2"/> <!-- Daging -->
+        <path d="M 20 65 C 20 80 80 80 80 65 Z" stroke-width="2"/> <!-- Roti Bawah -->
+        <!-- Wijen -->
+        <circle cx="40" cy="30" r="1" fill="#D6671C"/><circle cx="50" cy="25" r="1" fill="#D6671C"/><circle cx="60" cy="32" r="1" fill="#D6671C"/>
+    </svg>
+
+    <!-- Sketsa Mangkuk/Piring (Kanan Bawah) -->
+    <svg class="bg-sketch bottom-32 -right-16 w-56 h-56 rotate-12 animate-float-reverse" viewBox="0 0 100 100">
+        <ellipse cx="50" cy="40" rx="40" ry="15" stroke-width="2"/>
+        <path d="M 10 40 C 10 70 90 70 90 40" stroke-width="2"/>
+        <line x1="30" y1="67" x2="70" y2="67" stroke-width="2"/>
+        <path d="M 40 20 C 45 10 50 30 60 15" stroke-width="1.5"/> <!-- Asap -->
+        <path d="M 50 25 C 55 15 60 35 70 20" stroke-width="1.5"/>
+    </svg>
+
+    <!-- Wrapper Utama (Maksimal lebar mobile, responsif ke tablet/desktop) -->
+    <div class="w-full max-w-[420px] md:max-w-[768px] lg:max-w-[1024px] relative z-10 flex flex-col items-center pb-12 px-4 pt-16 md:pt-24">
+
+        <!-- Banner Header (Nempel Atas) -->
+        <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[85%] md:w-[60%] lg:w-[45%] bg-brand-orange text-white rounded-b-[2rem] px-4 py-2 flex items-center justify-center gap-3 shadow-md z-50">
+            <!-- Logo W -->
+            <div class="bg-white rounded-full w-9 h-9 flex items-center justify-center border border-orange-100 overflow-hidden p-0.5">
+                <img src="assets/wodot.webp" alt="Widyatama" class="w-full h-full object-contain rounded-full">
+            </div>
+            <!-- Teks Universitas -->
+            <span class="font-bold text-[13px] tracking-wide uppercase pt-0.5">Universitas Widyatama</span>
+        </div>
+
+        <!-- Kartu Menu Putih -->
+        <div class="w-full md:w-[95%] lg:w-[90%] bg-white border-[2px] border-brand-orange rounded-[1.5rem] pt-8 pb-8 px-6 shadow-sm flex flex-col items-center relative mt-4 z-20 animate-fade-in-up">
+
+            <!-- Judul Besar -->
+            <h1 class="text-[36px] md:text-[48px] font-black text-center text-black leading-[1.1] tracking-tight">
+                MENU FOOD COURT
+            </h1>
+
+            <!-- Sub Judul -->
+            <p class="text-center text-[#7a3b18] font-bold text-[13px] md:text-[15px] mt-4 mb-8">
+                Temukan Kuliner Favoritmu di Kampus
+            </p>
+
+            <!-- Daftar Menu (Tombol Hexagon Presisi - Responsif Grid) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 w-full px-1">
+                <!-- Item 1 -->
+                <a href="menu.html?id=bits" class="btn-hexagon bg-brand-orange w-full py-3.5 px-6 text-white font-bold text-[13px] leading-tight transition-transform active:scale-95 flex items-center justify-center min-h-[46px] shadow-sm hover:bg-[#c95d1c]">
+                    BITS COFFE
+                </a>
+
+                <!-- Item 2 -->
+                <a href="menu.html?id=kedai369" class="btn-hexagon bg-brand-orange w-full py-3.5 px-6 text-white font-bold text-[13px] leading-tight transition-transform active:scale-95 flex items-center justify-center min-h-[46px] shadow-sm hover:bg-[#c95d1c]">
+                    KEDAI 369
+                </a>
+
+                <!-- Item 3 -->
+                <a href="menu.html?id=ayambumbu" class="btn-hexagon bg-brand-orange w-full py-2.5 px-6 text-white font-bold text-[12px] leading-snug transition-transform active:scale-95 flex items-center justify-center min-h-[46px] shadow-sm text-center hover:bg-[#c95d1c]">
+                    KEDAI AYAM BUMBU<br>NUSANTARA
+                </a>
+
+                <!-- Item 4 -->
+                <a href="menu.html?id=poci" class="btn-hexagon bg-brand-orange w-full py-3.5 px-6 text-white font-bold text-[13px] leading-tight transition-transform active:scale-95 flex items-center justify-center min-h-[46px] shadow-sm hover:bg-[#c95d1c]">
+                    KEDAI POCI
+                </a>
+
+                <!-- Item 5 -->
+                <a href="menu.html?id=padang" class="btn-hexagon bg-brand-orange w-full py-3.5 px-6 text-white font-bold text-[13px] leading-tight transition-transform active:scale-95 flex items-center justify-center min-h-[46px] shadow-sm hover:bg-[#c95d1c]">
+                    MASAKAN PADANG
+                </a>
+
+                <!-- Item 6 -->
+                <a href="menu.html?id=ordinary" class="btn-hexagon bg-brand-orange w-full py-3.5 px-6 text-white font-bold text-[13px] leading-tight transition-transform active:scale-95 flex items-center justify-center min-h-[46px] shadow-sm hover:bg-[#c95d1c]">
+                    ORDINARY DAY
+                </a>
+
+                <!-- Item 7 -->
+                <a href="menu.html?id=tehgaling" class="btn-hexagon bg-brand-orange w-full py-2.5 px-6 text-white font-bold text-[12px] leading-snug transition-transform active:scale-95 flex items-center justify-center min-h-[46px] shadow-sm text-center hover:bg-[#c95d1c]">
+                    NASI TUTUG ONCOM<br>TEH GALING
+                </a>
+
+                <!-- Item 8 -->
+                <a href="menu.html?id=bakmie" class="btn-hexagon bg-brand-orange w-full py-3.5 px-6 text-white font-bold text-[13px] leading-tight transition-transform active:scale-95 flex items-center justify-center min-h-[46px] shadow-sm hover:bg-[#c95d1c]">
+                    BAKMIE KAMPUS
+                </a>
+
+                <!-- Item 9 -->
+                <a href="menu.html?id=soto" class="btn-hexagon bg-brand-orange w-full py-2.5 px-6 text-white font-bold text-[12px] leading-snug transition-transform active:scale-95 flex items-center justify-center min-h-[46px] shadow-sm text-center hover:bg-[#c95d1c]">
+                    SOTO JAKARTA<br>"MAYEMI ERA"
+                </a>
+            </div>
+        </div>
+
+        <!-- Kartu Informasi Bawah -->
+        <div class="w-[92%] md:w-[95%] lg:w-[90%] bg-[#FFF6EE] border-[1.5px] border-brand-orange rounded-[20px] py-4 px-4 md:py-8 md:px-8 mt-8 flex flex-row items-center justify-between shadow-md relative z-20 animate-fade-in-up">
+
+            <!-- Kiri: Jam Operasional -->
+            <div class="flex-1 flex flex-col items-center justify-center text-center">
+                <div class="bg-white p-2 md:p-3 rounded-full shadow-sm mb-2 border border-orange-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#DF6C23" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="md:w-8 md:h-8">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                </div>
+                <h3 class="font-extrabold text-[12px] md:text-[18px] text-brand-dark uppercase tracking-wide">Jam Operasional</h3>
+                <p class="text-[11px] md:text-[15px] font-bold text-[#DF6C23] mt-1">08.00 - 17.00 WIB</p>
+            </div>
+
+            <!-- Garis Pembatas Vertikal (Selalu Vertikal) -->
+            <div class="w-[1.5px] bg-brand-orange h-20 md:h-24 mx-4 md:mx-10 rounded-full opacity-30"></div>
+
+            <!-- Kanan: Info Praktis -->
+            <div class="flex-[1.3] flex flex-col items-center justify-center text-center">
+                <div class="bg-white p-2 md:p-3 rounded-full shadow-sm mb-2 border border-orange-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#DF6C23" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="md:w-8 md:h-8">
+                        <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/>
+                        <path d="M7 2v20"/>
+                        <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>
+                    </svg>
+                </div>
+                <h3 class="font-extrabold text-[12px] md:text-[18px] text-brand-dark uppercase tracking-wide">Info Praktis</h3>
+                <p class="text-[11px] md:text-[15px] text-brand-orange font-bold mt-0.5">Nyaman - Praktis - Variatif</p>
+                <p class="text-[8px] md:text-[13px] text-gray-700 font-semibold mt-0.5 max-w-[260px]">
+                    Nikmati berbagai pilihan makanan dan minuman setiap hari
+                </p>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Menu - Universitas Widyatama</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        html, body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FEF3E8;
+            overflow-x: hidden;
+            width: 100%;
+        }
+        .bg-brand-orange { background-color: #DF6C23; }
+        .text-brand-orange { color: #DF6C23; }
+        .border-brand-orange { border-color: #DF6C23; }
+        .btn-hexagon {
+            clip-path: polygon(15px 0%, calc(100% - 15px) 0%, 100% 50%, calc(100% - 15px) 100%, 15px 100%, 0% 50%);
+        }
+        .bg-campus-footer {
+            background-image: linear-gradient(to bottom, rgba(254, 243, 232, 1) 0%, rgba(254, 243, 232, 0.7) 30%, rgba(254, 243, 232, 0.85) 100%), url('assets/mainhall.jpg');
+            background-size: cover;
+            background-position: center bottom;
+        }
+
+        /* Animasi Keren */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes scaleIn {
+            from { transform: scale(0.95); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+        .animate-scale-in {
+            animation: scaleIn 0.5s ease-out forwards;
+        }
+        .btn-hexagon {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-hexagon:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 10px 15px -3px rgba(223, 108, 35, 0.3);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-start bg-campus-footer relative">
+
+    <div class="w-full max-w-[420px] md:max-w-[768px] lg:max-w-[1024px] relative z-10 flex flex-col items-center pb-12 px-4 pt-16 md:pt-24">
+        <!-- Banner Header (Nempel Atas) -->
+        <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[85%] md:w-[60%] lg:w-[45%] bg-brand-orange text-white rounded-b-[2rem] px-4 py-2 flex items-center justify-center gap-3 shadow-md z-50">
+            <!-- Logo W (webp image) -->
+            <div class="bg-white rounded-full w-9 h-9 flex items-center justify-center border border-orange-100 overflow-hidden p-0.5">
+                <img src="assets/wodot.webp" alt="Widyatama" class="w-full h-full object-contain rounded-full">
+            </div>
+            <!-- Teks Universitas -->
+            <span class="font-bold text-[13px] tracking-wide uppercase pt-0.5">Universitas Widyatama</span>
+        </div>
+
+        <!-- Detail Menu Card -->
+        <div class="w-full md:w-[95%] lg:w-[90%] bg-white border-[2px] border-brand-orange rounded-[1.5rem] pt-8 pb-10 px-4 shadow-sm flex flex-col items-center relative mt-4 z-20 animate-fade-in-up">
+
+            <!-- Judul Detail -->
+            <h1 id="menu-title" class="text-[24px] md:text-[32px] font-black text-center text-black leading-[1.2] tracking-tight mb-6 uppercase">
+                DETAIL MENU
+            </h1>
+
+            <!-- Image Wrapper -->
+            <div class="w-full bg-[#FFF6EE] border-[1.5px] border-brand-orange rounded-xl overflow-hidden shadow-inner flex items-center justify-center p-2 min-h-[300px] mb-8">
+                <img id="menu-image" src="" alt="Menu" class="max-w-full max-h-[80vh] object-contain rounded-lg">
+            </div>
+
+            <!-- Tombol Kembali -->
+            <a href="index.html" class="btn-hexagon bg-brand-orange w-[90%] md:w-[50%] lg:w-[40%] py-3 px-6 text-white font-bold text-[14px] leading-tight transition-transform active:scale-95 flex items-center justify-center min-h-[46px] shadow-md hover:bg-[#c95d1c] text-center">
+                KEMBALI KE MENU UTAMA
+            </a>
+        </div>
+    </div>
+
+    <script>
+        const menus = {
+            'bits': { title: 'BITS COFFEE', img: 'assets/bits.jpeg' },
+            'kedai369': { title: 'KEDAI 369', img: 'assets/Kedai 369-1.png' },
+            'ayambumbu': { title: 'KEDAI AYAM BUMBU', img: 'assets/ayam-bumbu.jpeg' },
+            'poci': { title: 'KEDAI POCI', img: 'assets/poci.png' },
+            'padang': { title: 'MASAKAN PADANG', img: 'assets/kapau-jaya.jpeg' },
+            'ordinary': { title: 'ORDINARY DAY', img: 'assets/ordinary-day.jpeg' },
+            'tehgaling': { title: 'TEH GALING', img: 'assets/teh-galing.jpeg' },
+            'bakmie': { title: 'BAKMIE KAMPUS', img: 'assets/bakmie-kampus.png' },
+            'soto': { title: 'SOTO JAKARTA', img: 'assets/soto-jakarta.jpeg' }
+        };
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const menuId = urlParams.get('id');
+        const selected = menus[menuId] || { title: 'MENU TIDAK DITEMUKAN', img: 'assets/wodot.webp' };
+
+        document.getElementById('menu-title').innerText = selected.title;
+        document.getElementById('menu-image').src = selected.img;
+        document.getElementById('menu-image').alt = selected.title;
+    </script>
+</body>
+</html>
