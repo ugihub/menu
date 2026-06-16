@@ -78,8 +78,14 @@
             </h1>
 
             <!-- Image Wrapper -->
-            <div class="w-full bg-[#FFF6EE] border-[1.5px] border-brand-orange rounded-xl overflow-hidden shadow-inner flex items-center justify-center p-2 min-h-[300px] mb-8">
-                <img id="menu-image" src="" alt="Menu" class="max-w-full max-h-[80vh] object-contain rounded-lg">
+            <div class="w-full flex flex-col items-center mb-8">
+                <!-- Main Image Container -->
+                <div class="w-full bg-[#FFF6EE] border-[1.5px] border-brand-orange rounded-xl overflow-hidden shadow-inner flex items-center justify-center p-2 min-h-[300px]">
+                    <img id="menu-image" src="" alt="Menu" class="max-w-full max-h-[70vh] object-contain rounded-lg">
+                </div>
+
+                <!-- Thumbnails Container (Will be populated dynamically by JS if there are multiple images) -->
+                <div id="thumbnails-container" class="flex flex-wrap justify-center gap-3 mt-4 w-full"></div>
             </div>
 
             <!-- Tombol Kembali -->
@@ -91,24 +97,76 @@
 
     <script>
         const menus = {
-            'bits': { title: 'BITS COFFEE', img: 'assets/bits.jpeg' },
-            'kedai369': { title: 'KEDAI 369', img: 'assets/Kedai 369-1.png' },
-            'ayambumbu': { title: 'KEDAI AYAM BUMBU', img: 'assets/ayam-bumbu.jpeg' },
-            'poci': { title: 'KEDAI POCI', img: 'assets/poci.png' },
-            'padang': { title: 'MASAKAN PADANG', img: 'assets/kapau-jaya.jpeg' },
-            'ordinary': { title: 'ORDINARY DAY', img: 'assets/ordinary-day.jpeg' },
-            'tehgaling': { title: 'TEH GALING', img: 'assets/teh-galing.jpeg' },
-            'bakmie': { title: 'BAKMIE KAMPUS', img: 'assets/bakmie-kampus.png' },
-            'soto': { title: 'SOTO JAKARTA', img: 'assets/soto-jakarta.jpeg' }
+            'bits': { title: 'BITS COFFEE', images: ['assets/bits.jpeg'] },
+            'kedai369': {
+                title: 'KEDAI 369',
+                images: ['assets/Kedai 369/Kedai 369-1.png', 'assets/Kedai 369/Kedai 369-2.png']
+            },
+            'ayambumbu': { title: 'KEDAI AYAM BUMBU', images: ['assets/ayam-bumbu.jpeg'] },
+            'poci': {
+                title: 'KEDAI POCI',
+                images: [
+                    'assets/poci/1.png',
+                    'assets/poci/2.png',
+                    'assets/poci/3.png',
+                    'assets/poci/4.png',
+                    'assets/poci/5.png'
+                ]
+            },
+            'padang': { title: 'MASAKAN PADANG', images: ['assets/kapau-jaya.jpeg'] },
+            'ordinary': { title: 'ORDINARY DAY', images: ['assets/ordinary-day.jpeg'] },
+            'tehgaling': { title: 'TEH GALING', images: ['assets/teh-galing.jpeg'] },
+            'bakmie': {
+                title: 'BAKMIE KAMPUS',
+                images: ['assets/bakmie/1.png', 'assets/bakmie/2.png']
+            },
+            'soto': { title: 'SOTO JAKARTA', images: ['assets/soto-jakarta.jpeg'] }
         };
 
         const urlParams = new URLSearchParams(window.location.search);
         const menuId = urlParams.get('id');
-        const selected = menus[menuId] || { title: 'MENU TIDAK DITEMUKAN', img: 'assets/wodot.webp' };
+        const selected = menus[menuId] || { title: 'MENU TIDAK DITEMUKAN', images: ['assets/wodot.webp'] };
 
-        document.getElementById('menu-title').innerText = selected.title;
-        document.getElementById('menu-image').src = selected.img;
-        document.getElementById('menu-image').alt = selected.title;
+        const menuTitleEl = document.getElementById('menu-title');
+        const menuImageEl = document.getElementById('menu-image');
+        const thumbnailsContainer = document.getElementById('thumbnails-container');
+
+        menuTitleEl.innerText = selected.title;
+        menuImageEl.src = selected.images[0];
+        menuImageEl.alt = selected.title;
+
+        // Render thumbnails if multiple images are present
+        if (selected.images && selected.images.length > 1) {
+            selected.images.forEach((imgSrc, index) => {
+                const btn = document.createElement('button');
+                btn.className = `w-14 h-14 md:w-20 md:h-20 border-[2px] rounded-lg overflow-hidden transition-all duration-300 hover:scale-105 shadow-sm focus:outline-none ${index === 0 ? 'border-brand-orange scale-105' : 'border-gray-300 opacity-60 hover:opacity-100'}`;
+
+                const img = document.createElement('img');
+                img.src = imgSrc;
+                img.alt = `${selected.title} ${index + 1}`;
+                img.className = "w-full h-full object-cover";
+
+                btn.appendChild(img);
+
+                btn.addEventListener('click', () => {
+                    // Update main image
+                    menuImageEl.src = imgSrc;
+
+                    // Reset all button styles
+                    const buttons = thumbnailsContainer.getElementsByTagName('button');
+                    for (let b of buttons) {
+                        b.classList.remove('border-brand-orange', 'scale-105');
+                        b.classList.add('border-gray-300', 'opacity-60');
+                    }
+
+                    // Activate current button
+                    btn.classList.remove('border-gray-300', 'opacity-60');
+                    btn.classList.add('border-brand-orange', 'scale-105');
+                });
+
+                thumbnailsContainer.appendChild(btn);
+            });
+        }
     </script>
 </body>
 </html>
